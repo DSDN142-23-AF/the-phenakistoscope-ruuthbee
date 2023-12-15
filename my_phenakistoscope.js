@@ -1,6 +1,7 @@
 const SLICE_COUNT = 10;
 
 function setup_pScope(pScope) {
+  //pScope.output_mode(STATIC_FRAME);
   pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(true);
@@ -15,13 +16,13 @@ function setup_layers(pScope) {
   layer1.mode(SWIRL(5));
   layer1.set_boundary(200, 1000);
 
-  var layer2 = new PLayer(squares);
-  layer2.mode(RING);
-  layer2.set_boundary(0, 400);
+  //var layer2 = new PLayer(squares);
+  // layer2.mode(RING);
+  // layer2.set_boundary(0, 400);
 
   var layer3 = new PLayer(kinashell);
-  layer3.mode(SWIRL(5));
-  layer3.set_boundary(200, 1000);
+  layer3.mode(SWIRL(4));
+  layer3.set_boundary(0, 800);
 }
 
 function faces(x, y, animation, pScope) {
@@ -48,21 +49,18 @@ function squares(x, y, animation, pScope) {
 }
 
 function kinashell() {
-  var kinaX = 10;
-  var kinaY = 15;
+  var kinaX = 50;
+  var kinaY = 0;
 
-  var kinasize = 30;
+  var kinasize = 50;
+
+  fill(146, 195, 139);
+  ellipseMode(RADIUS);
+  ellipse(kinaX, kinaY, kinasize);
 
   ellipseMode(CENTER);
   ellipse(kinaX, kinaY, kinasize / 6);
 
-  if (darkMode) {
-    stroke(120, 202, 250); //blue
-    fill(6, 24, 56); //darker navy blue
-  } else {
-    stroke(0); //black
-    fill(204, 213, 174); //light sage green
-  }
   strokeWeight(0.5);
   ellipse(kinaX, kinaY - kinasize / 3, kinasize / 30);
   ellipse(kinaX, kinaY + kinasize / 3, kinasize / 30);
