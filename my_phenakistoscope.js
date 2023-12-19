@@ -50,7 +50,7 @@ function squares(x, y, animation, pScope) {
 
 function kinashell() {
   var kinaX = 50;
-  var kinaY = 0;
+  var kinaY = 50;
 
   var kinasize = 50;
 
