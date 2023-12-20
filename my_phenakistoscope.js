@@ -4,7 +4,7 @@ function setup_pScope(pScope) {
   //pScope.output_mode(STATIC_FRAME);
   pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
-  pScope.draw_layer_boundaries(true);
+  pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
 }
@@ -70,7 +70,7 @@ function squares(x, y, animation, pScope) {
 function waves(x, y, animation, pScope) {
   let waveX = 0 - animation.wave() * 40;
   let waveY = 100 - animation.wave() * 40;
-  push();
+
   strokeWeight(20);
   stroke(113, 165, 222); //blue
   noFill();
@@ -84,7 +84,22 @@ function waves(x, y, animation, pScope) {
   curveVertex(-40, -1000);
   curveVertex(4000, -1000);
   endShape();
-  pop();
+
+  strokeWeight(15);
+  beginShape();
+  curveVertex(-50 - waveX, -210 - waveY);
+  curveVertex(40 - waveX, -300 - waveY);
+  curveVertex(-80, -1010);
+  curveVertex(4100, -1100);
+  endShape();
+
+  strokeWeight(10);
+  beginShape();
+  curveVertex(-50 - waveX, -210 - waveY);
+  curveVertex(40 - waveX, -300 - waveY);
+  curveVertex(-120, -1010);
+  curveVertex(4200, -1100);
+  endShape();
 }
 function kinashell(x, y, animation, pScope) {
   var kinaX = 20 - animation.wave() * 40;
