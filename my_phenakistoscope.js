@@ -10,7 +10,7 @@ function setup_pScope(pScope) {
 }
 
 function setup_layers(pScope) {
-  new PLayer(null, 220); //lets us draw the whole circle background, ignoring the boundaries
+  new PLayer(null, 153, 193, 222); //lets us draw the whole circle background, ignoring the boundaries
 
   // var layer1 = new PLayer(faces);
   // layer1.mode(SWIRL(5));
@@ -23,6 +23,10 @@ function setup_layers(pScope) {
   var layer3 = new PLayer(kinashell);
   layer3.mode(RING);
   layer3.set_boundary(50, 1000);
+
+  var layer4 = new PLayer(seashell);
+  layer4.mode(RING);
+  layer4.set_boundary(50, 1000);
 }
 
 function faces(x, y, animation, pScope) {
@@ -123,4 +127,106 @@ function kinashell(x, y, animation, pScope) {
   ellipse(kinaX + kinasize / 1.5, kinaY + kinasize / 1.5, kinasize / 12);
   ellipse(kinaX - kinasize / 1.5, kinaY + kinasize / 1.5, kinasize / 12);
   ellipse(kinaX + kinasize / 1.5, kinaY - kinasize / 1.5, kinasize / 12);
+}
+
+function seashell() {
+  let seashellX = 0;
+  let seashellY = -200;
+
+  let seashellWidth = 5 * 5;
+  let seashellHeight = seashellY - 40 * 2;
+  let seashellPoint = seashellHeight - 10 * 2;
+
+  stroke(0); //black
+  fill(255, 229, 189); //light pale yellow
+
+  triangle(
+    //right bottom piece
+    seashellX,
+    seashellY,
+    seashellX + seashellWidth + 10,
+    seashellHeight + 30,
+    seashellX + seashellWidth + 7,
+    seashellY + 2
+  );
+
+  triangle(
+    //left bottom piece
+    seashellX,
+    seashellY,
+    seashellX - seashellWidth - 10,
+    seashellHeight + 30,
+    seashellX - seashellWidth - 7,
+    seashellY + 2
+  );
+
+  beginShape(); // number three left from center
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX - seashellWidth - 18, seashellHeight + 30);
+  curveVertex(seashellX - 20, seashellPoint + 30); //apex of segment
+  curveVertex(seashellX + seashellWidth - 15, seashellHeight + 30);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  endShape();
+
+  beginShape(); // number three right from center
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX - seashellWidth + 15, seashellHeight + 30);
+  curveVertex(seashellX + 20, seashellPoint + 30); //apex of segment
+  curveVertex(seashellX + seashellWidth + 18, seashellHeight + 30);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  endShape();
+
+  beginShape(); // number two left from center
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX - seashellWidth - 17, seashellHeight + 15);
+  curveVertex(seashellX - 17, seashellPoint + 15); //apex of segment
+  curveVertex(seashellX + seashellWidth - 15, seashellHeight + 15);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  endShape();
+
+  beginShape(); // number two right from center
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX - seashellWidth + 15, seashellHeight + 15);
+  curveVertex(seashellX + 17, seashellPoint + 15); //apex of segment
+  curveVertex(seashellX + seashellWidth + 16, seashellHeight + 15);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  endShape();
+
+  beginShape(); // number one left from center
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX - seashellWidth - 10, seashellHeight + 5);
+  curveVertex(seashellX - 10, seashellPoint + 5); //apex of segment
+  curveVertex(seashellX + seashellWidth - 10, seashellHeight + 5);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  endShape();
+
+  beginShape(); // number one right from center
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX - seashellWidth + 10, seashellHeight + 5);
+  curveVertex(seashellX + 10, seashellPoint + 5); //apex of segment
+  curveVertex(seashellX + seashellWidth + 10, seashellHeight + 5);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  endShape();
+
+  beginShape(); //central segment
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX - seashellWidth, seashellHeight);
+  curveVertex(seashellX, seashellPoint); //apex of segment
+  curveVertex(seashellX + seashellWidth, seashellHeight);
+  curveVertex(seashellX, seashellY);
+  curveVertex(seashellX, seashellY);
+  endShape();
 }
