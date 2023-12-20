@@ -1,4 +1,4 @@
-const SLICE_COUNT = 10;
+const SLICE_COUNT = 14;
 
 function setup_pScope(pScope) {
   //pScope.output_mode(STATIC_FRAME);
@@ -12,17 +12,17 @@ function setup_pScope(pScope) {
 function setup_layers(pScope) {
   new PLayer(null, 220); //lets us draw the whole circle background, ignoring the boundaries
 
-  var layer1 = new PLayer(faces);
-  layer1.mode(SWIRL(5));
-  layer1.set_boundary(200, 1000);
+  // var layer1 = new PLayer(faces);
+  // layer1.mode(SWIRL(5));
+  // layer1.set_boundary(200, 1000);
 
-  //var layer2 = new PLayer(squares);
-  // layer2.mode(RING);
-  // layer2.set_boundary(0, 400);
+  var layer2 = new PLayer(waves);
+  layer2.mode(RING);
+  layer2.set_boundary(0, 200);
 
   var layer3 = new PLayer(kinashell);
-  layer3.mode(SWIRL(4));
-  layer3.set_boundary(0, 800);
+  layer3.mode(RING);
+  layer3.set_boundary(50, 1000);
 }
 
 function faces(x, y, animation, pScope) {
@@ -44,23 +44,60 @@ function squares(x, y, animation, pScope) {
   fill(66, 135, 245);
   arc(x, y, 800, 800, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
 
-  fill(255);
-  rect(-10, -300 - animation.wave() * 50, 20, 20); // .wave is a cosine wave btw
+  let waveX = -animation.wave() * 50;
+  let waveY = -animation.wave() * 0;
+  push();
+  strokeWeight(10);
+  noFill();
+  beginShape();
+  curveVertex(-100, -500);
+  curveVertex(0, 0);
+  curveVertex(-40 - waveX, -50 - waveY);
+  curveVertex(40 - waveX, -100 - waveY);
+  curveVertex(-40 - waveX, -200 - waveY);
+  curveVertex(40 - waveX, -300 - waveY);
+  curveVertex(-40, -400);
+  curveVertex(40, -400);
+
+  endShape();
+  pop();
 }
 
-function kinashell() {
-  var kinaX = 50;
-  var kinaY = 50;
+function waves(x, y, animation, pScope) {
+  let waveX = 0 - animation.wave() * 40;
+  let waveY = 100 - animation.wave() * 40;
+  push();
+  strokeWeight(20);
+  stroke(113, 165, 222); //blue
+  noFill();
+  beginShape();
+  curveVertex(-100, -500);
+  curveVertex(0, 0);
+  curveVertex(-40 - waveX, -50 - waveY);
+  curveVertex(40 - waveX, -100 - waveY);
+  curveVertex(-40 - waveX, -200 - waveY);
+  curveVertex(40 - waveX, -300 - waveY);
+  curveVertex(-40, -1000);
+  curveVertex(4000, -1000);
+  endShape();
+  pop();
+}
+function kinashell(x, y, animation, pScope) {
+  var kinaX = 20 - animation.wave() * 40;
+  var kinaY = -450;
 
-  var kinasize = 50;
+  var kinasize = 90;
 
-  fill(146, 195, 139);
+  strokeWeight(1.5);
+  fill(146, 195, 139); // yellow toned green
   ellipseMode(RADIUS);
   ellipse(kinaX, kinaY, kinasize);
 
+  fill(0);
   ellipseMode(CENTER);
   ellipse(kinaX, kinaY, kinasize / 6);
 
+  fill(204, 213, 174); //light sage green
   strokeWeight(0.5);
   ellipse(kinaX, kinaY - kinasize / 3, kinasize / 30);
   ellipse(kinaX, kinaY + kinasize / 3, kinasize / 30);
