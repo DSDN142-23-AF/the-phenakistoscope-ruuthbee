@@ -1,12 +1,14 @@
-const SLICE_COUNT = 14;
+const SLICE_COUNT = 12;
 
 function setup_pScope(pScope) {
-  //pScope.output_mode(STATIC_FRAME);
-  pScope.output_mode(ANIMATED_DISK);
+  pScope.output_mode(STATIC_FRAME);
+  //pScope.output_mode(STATIC_DISK);
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
-  pScope.set_direction(CCW);
+  pScope.set_direction(CW);
   pScope.set_slice_count(SLICE_COUNT);
+
+  pScope.load_image_sequence('fish_sequence', 'png', 12);
 }
 
 function setup_layers(pScope) {
@@ -27,6 +29,10 @@ function setup_layers(pScope) {
   var layer4 = new PLayer(seashell);
   layer4.mode(RING);
   layer4.set_boundary(50, 1000);
+
+  var fishSequence = new PLayer(fish);
+  fishSequence.mode(RING);
+  fishSequence.set_boundary(0, 1000);
 }
 
 function faces(x, y, animation, pScope) {
@@ -68,8 +74,8 @@ function squares(x, y, animation, pScope) {
 }
 
 function waves(x, y, animation, pScope) {
-  let waveX = 0 - animation.wave() * 40;
-  let waveY = 100 - animation.wave() * 40;
+  let waveX = 0 - animation.wave(1) * 2;
+  let waveY = 100 - animation.wave(1) * 20;
 
   strokeWeight(20);
   stroke(113, 165, 222); //blue
@@ -117,7 +123,7 @@ function kinashell(x, y, animation, pScope) {
   ellipse(kinaX, kinaY, kinasize / 6);
 
   fill(204, 213, 174); //light sage green
-  strokeWeight(0.5);
+  strokeWeight(1);
   ellipse(kinaX, kinaY - kinasize / 3, kinasize / 30);
   ellipse(kinaX, kinaY + kinasize / 3, kinasize / 30);
   ellipse(kinaX - kinasize / 3, kinaY, kinasize / 30);
@@ -244,4 +250,10 @@ function seashell() {
   curveVertex(seashellX, seashellY);
   curveVertex(seashellX, seashellY);
   endShape();
+}
+
+function fish(x, y, animation, pScope) {
+  translate(x, y);
+  scale(1);
+  pScope.draw_image_from_sequence('fish_sequence', 0, 0, animation.frame);
 }
