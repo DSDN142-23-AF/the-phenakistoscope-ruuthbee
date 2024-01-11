@@ -1,11 +1,13 @@
 const SLICE_COUNT = 12;
 
 function setup_pScope(pScope) {
-  pScope.output_mode(STATIC_FRAME);
+  //pScope.output_mode(STATIC_FRAME);
+  //pScope.output_mode(ANIMATED_FRAME);
   //pScope.output_mode(STATIC_DISK);
+  pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
-  pScope.set_direction(CW);
+  pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
 
   pScope.load_image_sequence('fish_sequence', 'png', 12);
@@ -28,7 +30,7 @@ function setup_layers(pScope) {
 
   var layer4 = new PLayer(seashell);
   layer4.mode(RING);
-  layer4.set_boundary(50, 1000);
+  layer4.set_boundary(0, 270);
 
   var fishSequence = new PLayer(fish);
   fishSequence.mode(RING);
@@ -108,8 +110,8 @@ function waves(x, y, animation, pScope) {
   endShape();
 }
 function kinashell(x, y, animation, pScope) {
-  var kinaX = 20 - animation.wave() * 40;
-  var kinaY = -450;
+  var kinaX = 20;
+  var kinaY = -450 - animation.wave() * 40;
 
   var kinasize = 90;
 
@@ -150,9 +152,9 @@ function kinashell(x, y, animation, pScope) {
   ellipse(kinaX + kinasize / 1.5, kinaY - kinasize / 1.5, kinasize / 12);
 }
 
-function seashell() {
-  let seashellX = 0;
-  let seashellY = -200;
+function seashell(x, y, animation, pScope) {
+  var seashellX = 0;
+  var seashellY = -200 - animation.wave() * 20;
 
   let seashellWidth = 5 * 5;
   let seashellHeight = seashellY - 40 * 2;
@@ -253,7 +255,8 @@ function seashell() {
 }
 
 function fish(x, y, animation, pScope) {
-  translate(x, y);
-  scale(1);
+  translate(0, -850);
+  scale(0.23);
+  frameRate(8);
   pScope.draw_image_from_sequence('fish_sequence', 0, 0, animation.frame);
 }
