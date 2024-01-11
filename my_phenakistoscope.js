@@ -76,7 +76,7 @@ function squares(x, y, animation, pScope) {
 }
 
 function waves(x, y, animation, pScope) {
-  let waveX = 0 - animation.wave(1) * 2;
+  let waveX = 0 - animation.wave(1) * 20;
   let waveY = 100 - animation.wave(1) * 20;
 
   strokeWeight(20);
