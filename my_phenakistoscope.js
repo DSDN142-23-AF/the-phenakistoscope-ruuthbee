@@ -16,30 +16,29 @@ function setup_pScope(pScope) {
 function setup_layers(pScope) {
   new PLayer(null, 153, 193, 222); //lets us draw the whole circle background, ignoring the boundaries
 
-  // var layer1 = new PLayer(faces);
-  // layer1.mode(SWIRL(5));
-  // layer1.set_boundary(200, 1000);
-
   var layer2 = new PLayer(waves);
+  //layer2.mode(SWIRL(1));
   layer2.mode(RING);
-  layer2.set_boundary(0, 200);
-
-  var layer3 = new PLayer(kinashell);
-  layer3.mode(RING);
-  layer3.set_boundary(50, 1000);
+  layer2.set_boundary(0, 50);
 
   var layer4 = new PLayer(seashell);
   layer4.mode(RING);
   layer4.set_boundary(0, 270);
 
+  var layer3 = new PLayer(kinashell);
+  layer3.mode(RING);
+  layer3.set_boundary(0, 1000);
+
   var fishSequence = new PLayer(fish);
   fishSequence.mode(RING);
   fishSequence.set_boundary(0, 1000);
+
+  var centerDesign = new PLayer(sun);
+  centerDesign.mode(SWIRL(10));
+  centerDesign.set_boundary(0, 1);
 }
 
 function faces(x, y, animation, pScope) {
-  scale(animation.frame * 2);
-
   ellipse(0, 0, 50, 50); // draw head
   fill(30);
   ellipse(-10, -10, 10, 10); //draw eye
@@ -76,44 +75,71 @@ function squares(x, y, animation, pScope) {
 }
 
 function waves(x, y, animation, pScope) {
-  let waveX = 0 - animation.wave(1) * 20;
-  let waveY = 100 - animation.wave(1) * 20;
+  let waveX = 40 - animation.wave() * 40;
+  let waveY = 210 - animation.wave() * 20;
 
-  strokeWeight(20);
+  strokeWeight(10);
   stroke(113, 165, 222); //blue
+  //stroke(113, 165, 222); //blue
   noFill();
   beginShape();
-  curveVertex(-100, -500);
-  curveVertex(0, 0);
-  curveVertex(-40 - waveX, -50 - waveY);
-  curveVertex(40 - waveX, -100 - waveY);
-  curveVertex(-40 - waveX, -200 - waveY);
-  curveVertex(40 - waveX, -300 - waveY);
-  curveVertex(-40, -1000);
+  //curveVertex(-100, -500);
+  //curveVertex(0, 0);
+  //curveVertex(-40 - waveX, -50 - waveY);
+  //curveVertex(40 - waveX, -100 - waveY);
+  curveVertex(-waveX, waveY);
+  curveVertex(waveX, -90 - waveY);
+  curveVertex(-waveX, -1010);
   curveVertex(4000, -1000);
   endShape();
 
   strokeWeight(15);
   beginShape();
-  curveVertex(-50 - waveX, -210 - waveY);
-  curveVertex(40 - waveX, -300 - waveY);
-  curveVertex(-80, -1010);
+  curveVertex(-waveX, waveY);
+  curveVertex(waveX, -90 - waveY);
+  curveVertex(-waveX * 2, -1010);
   curveVertex(4100, -1100);
   endShape();
 
-  strokeWeight(10);
+  strokeWeight(20);
   beginShape();
-  curveVertex(-50 - waveX, -210 - waveY);
-  curveVertex(40 - waveX, -300 - waveY);
-  curveVertex(-120, -1010);
-  curveVertex(4200, -1100);
+  curveVertex(-waveX, waveY);
+  curveVertex(waveX, -90 - waveY);
+  curveVertex(-waveX * 3, -1010);
+  curveVertex(4200, -1200);
+  endShape();
+
+  strokeWeight(7);
+  beginShape();
+  curveVertex(-waveX, waveY);
+  curveVertex(waveX, -90 - waveY);
+  curveVertex(-waveX * -0.5, -1010);
+  curveVertex(4100, -1100);
+  endShape();
+
+  strokeWeight(4);
+  beginShape();
+  curveVertex(-waveX, waveY);
+  curveVertex(waveX, -90 - waveY);
+  curveVertex(-waveX * -2, -1010);
+  curveVertex(4100, -1100);
+  endShape();
+
+  strokeWeight(2);
+  stroke(113, 165, 222); //blue
+  noFill();
+  beginShape();
+  curveVertex(-waveX, waveY);
+  curveVertex(waveX, -90 - waveY);
+  curveVertex(-waveX * -3, -1010);
+  curveVertex(4000, -1000);
   endShape();
 }
 function kinashell(x, y, animation, pScope) {
-  var kinaX = 20;
-  var kinaY = -450 - animation.wave() * 40;
+  var kinaX = 0;
+  var kinaY = -475 - animation.wave() * 40;
 
-  var kinasize = 90;
+  var kinasize = 50 + animation.wave() * 40;
 
   strokeWeight(1.5);
   fill(146, 195, 139); // yellow toned green
@@ -153,12 +179,38 @@ function kinashell(x, y, animation, pScope) {
 }
 
 function seashell(x, y, animation, pScope) {
-  var seashellX = 0;
-  var seashellY = -200 - animation.wave() * 20;
+  let angleOffset = 360 / SLICE_COUNT / 2;
+  let backgroundArcStart = 270 - angleOffset;
+  let backgroundArcEnd = 270 + angleOffset;
 
-  let seashellWidth = 5 * 5;
-  let seashellHeight = seashellY - 40 * 2;
-  let seashellPoint = seashellHeight - 10 * 2;
+  fill(113, 165, 222);
+  noStroke();
+  arc(x, y, 400, 400, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 100);
+  arc(x, y, 400, 600, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 100);
+  arc(x, y, 400, 800, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 100);
+  arc(x, y, 600, 1000, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 80);
+  arc(x, y, 1000, 1100, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 60);
+  arc(x, y, 1000, 1200, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 40);
+  arc(x, y, 1000, 1300, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 30);
+  arc(x, y, 1400, 1400, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 20);
+  arc(x, y, 1500, 1500, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(113, 165, 222, 10);
+  arc(x, y, 1500, 1600, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+
+  var seashellX = 0;
+  var seashellY = -250 - animation.wave() * 20;
+
+  let seashellWidth = 25 - animation.wave() * 20;
+  let seashellHeight = seashellY - 80;
+  let seashellPoint = seashellHeight - 20;
 
   stroke(0); //black
   fill(255, 229, 189); //light pale yellow
@@ -256,7 +308,19 @@ function seashell(x, y, animation, pScope) {
 
 function fish(x, y, animation, pScope) {
   translate(0, -850);
-  scale(0.23);
   frameRate(8);
   pScope.draw_image_from_sequence('fish_sequence', 0, 0, animation.frame);
+}
+
+function sun(x, y, animation, pScope) {
+  let angleOffset = 360 / SLICE_COUNT / 2;
+  let backgroundArcStart = 270 - angleOffset;
+  let backgroundArcEnd = 270 + angleOffset;
+
+  fill(250, 183, 75, 100);
+  noStroke();
+  rotate(animation.wave() * 200);
+  arc(x, y, 20, 350, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  fill(250, 183, 75, 200);
+  arc(x, y, 150, 150, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
 }
