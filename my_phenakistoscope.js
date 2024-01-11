@@ -14,7 +14,6 @@ function setup_layers(pScope) {
   new PLayer(null, 153, 193, 222); //lets us draw the whole circle background, ignoring the boundaries
 
   var layer2 = new PLayer(waves);
-  //layer2.mode(SWIRL(1));
   layer2.mode(RING);
   layer2.set_boundary(0, 50);
 
