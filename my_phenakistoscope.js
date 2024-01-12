@@ -1,7 +1,7 @@
 const SLICE_COUNT = 12;
 
 function setup_pScope(pScope) {
-  pScope.output_mode(OUTPUT_GIF(1000));
+  pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
@@ -304,7 +304,6 @@ function seashell(x, y, animation, pScope) {
 
 function fish(x, y, animation, pScope) {
   translate(0, -850);
-  frameRate(8);
   pScope.draw_image_from_sequence('fish_sequence', 0, 0, animation.frame);
 }
 
