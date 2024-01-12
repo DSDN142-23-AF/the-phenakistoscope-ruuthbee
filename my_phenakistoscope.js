@@ -34,42 +34,6 @@ function setup_layers(pScope) {
   centerDesign.set_boundary(0, 1);
 }
 
-function faces(x, y, animation, pScope) {
-  ellipse(0, 0, 50, 50); // draw head
-  fill(30);
-  ellipse(-10, -10, 10, 10); //draw eye
-  ellipse(10, -10, 10, 10); // draw eye
-  arc(0, 10, 20, 10, 0, 180); // draw mouth
-}
-
-function squares(x, y, animation, pScope) {
-  // this is how you set up a background for a specific layer
-  let angleOffset = 360 / SLICE_COUNT / 2;
-  let backgroundArcStart = 270 - angleOffset;
-  let backgroundArcEnd = 270 + angleOffset;
-
-  fill(66, 135, 245);
-  arc(x, y, 800, 800, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
-
-  let waveX = -animation.wave() * 50;
-  let waveY = -animation.wave() * 0;
-  push();
-  strokeWeight(10);
-  noFill();
-  beginShape();
-  curveVertex(-100, -500);
-  curveVertex(0, 0);
-  curveVertex(-40 - waveX, -50 - waveY);
-  curveVertex(40 - waveX, -100 - waveY);
-  curveVertex(-40 - waveX, -200 - waveY);
-  curveVertex(40 - waveX, -300 - waveY);
-  curveVertex(-40, -400);
-  curveVertex(40, -400);
-
-  endShape();
-  pop();
-}
-
 function waves(x, y, animation, pScope) {
   let waveX = 40 - animation.wave() * 40;
   let waveY = 210 - animation.wave() * 20;
@@ -131,6 +95,7 @@ function waves(x, y, animation, pScope) {
   curveVertex(4000, -1000);
   endShape();
 }
+
 function kinashell(x, y, animation, pScope) {
   var kinaX = 0;
   var kinaY = -475 - animation.wave() * 40;
@@ -312,10 +277,10 @@ function sun(x, y, animation, pScope) {
   let backgroundArcStart = 270 - angleOffset;
   let backgroundArcEnd = 270 + angleOffset;
 
-  fill(250, 183, 75, 100);
+  fill(250, 183, 75, 100); //golden yellow
   noStroke();
   rotate(animation.wave() * 200);
-  arc(x, y, 20, 350, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  arc(x, y, 20, 350, backgroundArcStart, backgroundArcEnd); //'sun rays'
   fill(250, 183, 75, 200);
-  arc(x, y, 150, 150, backgroundArcStart, backgroundArcEnd); // draws "pizza slice" in the background
+  arc(x, y, 150, 150, backgroundArcStart, backgroundArcEnd); // sun center circle
 }
