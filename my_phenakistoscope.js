@@ -43,10 +43,6 @@ function waves(x, y, animation, pScope) {
   //stroke(113, 165, 222); //blue
   noFill();
   beginShape();
-  //curveVertex(-100, -500);
-  //curveVertex(0, 0);
-  //curveVertex(-40 - waveX, -50 - waveY);
-  //curveVertex(40 - waveX, -100 - waveY);
   curveVertex(-waveX, waveY);
   curveVertex(waveX, -90 - waveY);
   curveVertex(-waveX, -1010);
